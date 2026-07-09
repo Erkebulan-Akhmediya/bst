@@ -4,6 +4,30 @@ class Node {
         this.left = null
         this.right = null
     }
+
+    insert(val) {
+        if (val < this.val) {
+            if (this.left == null) {
+                this.left = new Node(val)
+            } else {
+                this.left.insert(val)
+            }
+        } else {
+            if (this.right == null) {
+                this.right = new Node(val)
+            } else {
+                this.right.insert(val)
+            }
+        }
+    }
+
+    toArray() {
+        return [
+            ...this.left?.toArray() ?? [], 
+            this.val, 
+            ...this.right?.toArray() ?? []
+        ]
+    }
 }
 
 export default class BST {
@@ -16,33 +40,11 @@ export default class BST {
             this.root = new Node(val)
             return
         }
-        this._insert(this.root, val)
-    }
-
-    _insert(node, val) {
-        if (val < node.val) {
-            if (node.left == null) {
-                node.left = new Node(val)
-            } else {
-                this._insert(node.left, val)
-            }
-        } else {
-            if (node.right == null) {
-                node.right = new Node(val)
-            } else {
-                this._insert(node.right, val)
-            }
-        }
+        this.root.insert(val)
     }
 
     toArray() {
-        return this._toArray(this.root)
-    }
-
-    _toArray(node) {
-        if (node == null)
-            return []
-        return [...this._toArray(node.left), node.val, ...this._toArray(node.right)]
+        return this.root?.toArray() ?? []
     }
 
 }
