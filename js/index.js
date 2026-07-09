@@ -9,3 +9,15 @@ bst.insert(9)
 bst.insert(11)
 
 console.log(bst.toArray())
+
+bst.delete(12)
+
+console.log(bst.toArray())
+
+bst.delete(8)
+
+console.log(bst.toArray())
+
+bst.delete(10)
+
+console.log(bst.toArray())

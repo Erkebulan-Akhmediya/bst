@@ -71,9 +71,17 @@ export default class BST {
         if (node.right == null)
             return node.left
 
-        // TODO: get successor
+        const successor = this.getSuccessor(node)
+        node.val = successor.val
+        node.right = this._delete(node.right, successor.val)
+        return node
     }
 
-    getSuccessor(node) {}
+    getSuccessor(node) {
+        node = node.right
+        while (node !== null && node.left !== null)
+            node = node.left
+        return node
+    }
 
 }
