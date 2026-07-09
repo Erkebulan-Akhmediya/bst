@@ -47,4 +47,33 @@ export default class BST {
         return this.root?.toArray() ?? []
     }
 
+    delete(val) {
+        this.root = this._delete(this.root, val)
+    }
+
+    _delete(node, val) {
+        if (node == null) 
+            return node
+
+        if (val < node.val) {
+            node.left = this._delete(node.left, val)
+            return node
+        }
+
+        if (val > node.val) {
+            node.right = this._delete(node.right, val)
+            return node
+        }
+
+        if (node.left == null)
+            return node.right
+
+        if (node.right == null)
+            return node.left
+
+        // TODO: get successor
+    }
+
+    getSuccessor(node) {}
+
 }
