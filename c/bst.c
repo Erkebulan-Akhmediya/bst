@@ -50,6 +50,33 @@ void printTree(struct Node *node) {
     printTree(node->right);
 }
 
+struct Node *getSuccessor(struct Node *node) {
+    struct Node *successor = node->right;
+    while (successor != NULL && successor->left != NULL) {
+        successor = successor->left;
+    }
+    return successor;
+}
+
+struct Node *delete(struct Node *node, int val) {
+    if (val < node->val) {
+        node->left = delete(node->left, val);
+        return node;
+    }
+    if (val > node->val) {
+        node->right = delete(node->right, val);
+        return node;
+    }
+    if (node->left == NULL)
+        return node->right;
+    if (node->right == NULL)
+        return node->left;
+    struct Node *successor = getSuccessor(node);
+    node->val = successor->val;
+    node->right = delete(node->right, successor->val);
+    return node;
+}
+
 int main() {
     struct Node *root = NULL;
 	root = insert(root, 10);
@@ -61,6 +88,16 @@ int main() {
 	root = insert(root, 17);
 
 	printTree(root);
+    printf("\n");
+
+    root = delete(root, 15);
+
+    printTree(root);
+    printf("\n");
+
+    root = delete(root, 7);
+
+    printTree(root);
     printf("\n");
 
     freeTree(root);
